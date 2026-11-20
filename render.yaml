@@ -1,0 +1,33 @@
+# ЛР7: опис розгортання на Render (Blueprint): база PostgreSQL, API у Docker-контейнері, вебсторінка
+databases:
+  - name: weather-db
+    databaseName: weatherdb
+    user: weather
+    plan: free
+    region: frankfurt
+
+services:
+  - type: web
+    name: weather-api-romanova
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:10000
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: weather-db
+          property: connectionString
+      - key: Cors__AllowedOrigins__0
+        value: https://weather-web-romanova.onrender.com
+
+  - type: web
+    name: weather-web-romanova
+    runtime: static
+    buildCommand: echo "static site"
+    staticPublishPath: ./WeatherSystem.Web
