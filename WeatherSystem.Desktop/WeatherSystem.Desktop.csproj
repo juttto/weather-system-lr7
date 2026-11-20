@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Лише класи даних (DeviceDto і запити) — сам доступ до пристроїв іде через REST API -->
+    <ProjectReference Include="..\WeatherSystem.Services\WeatherSystem.Services.csproj" />
+  </ItemGroup>
+
+</Project>
